@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Common'], function() {
 
 	// Registration Controller
 	Route::get($k='register', ['as' => 'registrationPage', 'uses' => sprintf('%s@%s', $c='RegisterController', 'getIndex')]);
-	Route::post($k.'/new-account', ['as' => 'registrationURL', 'uses' => $c.'@postNewAccount', 'middleware' => ['VerifyCsrfToken'], ]);
+	Route::post($k.'/new-account', ['as' => 'registrationURL', 'uses' => $c.'@postNewAccount', ]);
 
 	// Login Controller
 	Route::get('login', ['as' => 'loginPage', 'uses' => sprintf('%s@%s', $c='LoginController', 'getIndex')]);

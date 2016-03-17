@@ -24,7 +24,7 @@
       @yield('content')
     </div>
   </div>
-  {{ Html::script('https://code.jquery.com/jquery-2.2.1.min.js', ['integrity' => 'sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=', 'crossorigin' => 'anonymous' ]) }} 
+  {{ Html::script('https://code.jquery.com/jquery-1.12.1.min.js', ['integrity' => 'sha256-I1nTg78tSrZev3kjvfdM5A5Ak/blglGzlaZANLPDl3I=', 'crossorigin' => 'anonymous' ]) }} 
   {{ Html::script(asset('library/underscore.min.js')) }} 
   @yield('js')
   <script type='text/javascript'>

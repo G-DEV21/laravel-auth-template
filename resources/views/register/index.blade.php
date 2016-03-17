@@ -9,13 +9,13 @@
     			{{ Form::label('First Name:') }}
     		</div>
     		<div>
-    			{{ Form::text('fname', 'First Name') }}
+    			{{ Form::text('fname', '', ['placeholder' => 'Your first name']) }}
     		</div>
     		<div>
     			{{ Form::label('Last Name:') }}
     		</div>
     		<div>
-    			{{ Form::text('lname', 'Last Name') }}
+    			{{ Form::text('lname', '', ['placeholder' => 'Your last name']) }}
     		</div>
     	</div>
     	<div>
@@ -31,7 +31,7 @@
     			{{ Form::label('Password') }}
     		</div>
     		<div>
-    			{{ Form::password('password', ['placeholder' => 'New Password']) }}
+    			{{ Form::password('password', ['placeholder' => 'New Password', 'id' => 'password']) }}
     		</div>
     	</div>
     	<div>
@@ -39,22 +39,50 @@
     			{{ Form::label('Re-enter Password') }}
     		</div>
     		<div>
-    			{{ Form::password('rpassword', ['placeholder' => 'Confirm Password']) }}
+    			{{ Form::password('password_confirmation', ['placeholder' => 'Confirm Password', 'id' => 'password_confirmation']) }}
     		</div>
     	</div>
     	<div>
-    	{{ Form::submit('submit', ['name' => 'submit']) }}
+    	{{ Form::button('Submit', ['name' => 'send']) }}
     	</div>
 		{!! Form::close() !!}
 	</div>
 @stop
 @section('js') 
     {{ Html::script(asset('library/jquery.validate.min.js')) }}
+    {{ Html::script(asset('library/jquery.form.min.js')) }}
 @stop
 @section('script')
 $(function() {
-    $('#{!! $formId !!}').submit(function() {
-        alert('Submitted');
+    var form = $('#{!! $formId !!}');
+    form.validate({
+        rules : {
+            fname: 'required',
+            lname: 'required',
+            email: {
+                required: true,
+                email: true,
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+            password_confirmation: {
+                 required: true,
+                 minlength: 5,
+                 equalTo: '#password'
+            }
+        },
+        submitHandler: function(el) {
+            console.log(el);
+            $(el).ajaxSubmit(function() {
+               console.log(arguments); 
+            });
+        }
     });
+    form.find('button[name="send"]').click(function() {
+        form.submit();    
+    })
+    
 });
 @stop
