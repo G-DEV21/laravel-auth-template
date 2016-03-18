@@ -11,25 +11,6 @@
 |
 */
 
-
-// public route declaration
-Route::group(['namespace' => 'Common'], function() {
-
-	//Home Controller
-	Route::get('/', ['as' => 'homePage', 'uses' => sprintf('%s@%s', $c='HomeController', 'getIndex')]);
-
-	// Registration Controller
-	Route::get($k='register', ['as' => 'registrationPage', 'uses' => sprintf('%s@%s', $c='RegisterController', 'getIndex')]);
-	Route::post($k.'/new-account', ['as' => 'registrationURL', 'uses' => $c.'@postNewAccount', ]);
-
-	// Login Controller
-	Route::get('login', ['as' => 'loginPage', 'uses' => sprintf('%s@%s', $c='LoginController', 'getIndex')]);
-});
-
-Route::group(['namespace' => 'Secured'], function() {
-	//
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -41,6 +22,22 @@ Route::group(['namespace' => 'Secured'], function() {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+
+// public route declaration
+Route::group(['namespace' => 'Common', 'middleware' => ['web']], function() {
+
+	//Home Controller
+	Route::get('/', ['as' => 'homePage', 'uses' => sprintf('%s@%s', $c='HomeController', 'getIndex')]);
+
+	// Registration Controller
+	Route::get($k='register', ['as' => 'registrationPage', 'uses' => sprintf('%s@%s', $c='RegisterController', 'getIndex')]);
+	Route::post($k.'/new-account', ['as' => 'registrationURL', 'uses' => $c.'@postNewAccount', ]);
+
+	// Login Controller
+	Route::get($k='login', ['as' => 'loginPage', 'uses' => sprintf('%s@%s', $c='LoginController', 'getIndex')]);
+	Route::post($k.'/autenticate', ['as' => 'loginAuthentication', 'uses' => sprintf('%s@%s', $c='LoginController', 'postAuth')]);
+});
+
+Route::group(['namespace' => 'Secured'], function() {
+	//
 });

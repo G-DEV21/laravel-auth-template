@@ -159,7 +159,7 @@ return [
         /*
          * Composer Packages...
          */
-         'Collective\Html\HtmlServiceProvider',
+         Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
